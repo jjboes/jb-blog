@@ -1,57 +1,62 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import api from '../services/api';
 
 function Home() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await api.get('/posts');
-        setPosts(response.data);
-      } catch (err) {
-        setError('Failed to fetch posts');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, []);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div className="error">{error}</div>;
+  const sections = {
+    technology: {
+      title: "Technology & AI",
+      posts: [
+        "The Future of LLMs: Beyond Text Generation",
+        "Silicon Valley's Third Wave",
+        "Why Programming Languages Matter",
+        "The Hidden Costs of Technical Debt",
+        "AI Safety: A Pragmatic Approach"
+      ]
+    },
+    society: {
+      title: "Society & Culture",
+      posts: [
+        "Baseball's Analytics Revolution",
+        "The Evolution of Remote Work",
+        "Digital Gardens vs Traditional Blogs",
+        "Modern Craft Movement",
+        "Urban Planning in the Age of AI"
+      ]
+    },
+    craft: {
+      title: "Craft & Skills",
+      posts: [
+        "Japanese Joinery Techniques",
+        "The Art of Technical Writing",
+        "Learning Languages Efficiently",
+        "Baseball Pitch Design",
+        "Travel as a Learning Tool"
+      ]
+    }
+  };
 
   return (
     <div className="container">
-      <h1>Welcome to JB's Blog</h1>
-      {posts.length === 0 ? (
-        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-          <p>No posts yet. Check back soon!</p>
-        </div>
-      ) : (
-        <div className="posts-grid">
-          {posts.map(post => (
-            <div key={post._id} className="post-card">
-              {post.image && (
-                <img src={`http://localhost:5000${post.image}`} alt={post.title} className="post-image" />
-              )}
-              <div className="post-card-content">
-                <h2>{post.title}</h2>
-                <p>{post.content.substring(0, 150)}...</p>
-                <div className="post-meta">
-                  <span className="post-author">By {post.author.username}</span>
-                  <span className="post-date">{new Date(post.createdAt).toLocaleDateString()}</span>
-                </div>
-                <Link to={`/post/${post._id}`} className="read-more">Read More</Link>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+      <p className="intro">
+        This is JB's blog. I write about technology, society, and craft. 
+        My focus areas include artificial intelligence, baseball analytics, 
+        woodworking, and the intersection of traditional crafts with modern technology.
+      </p>
+      
+      <div className="blog-sections">
+        {Object.entries(sections).map(([key, section]) => (
+          <div key={key} className="section">
+            <h2>{section.title}</h2>
+            <ul className="post-list">
+              {section.posts.map((post, index) => (
+                <li key={index}>
+                  <Link to={`/post/${index}`}>{post}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

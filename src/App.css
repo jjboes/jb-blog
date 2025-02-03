@@ -1,24 +1,82 @@
-/* Modern font stack similar to Apple's SF Pro */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* Modern serif font for main content */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
-  background-color: #ffffff;
-  color: #1d1d1f;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
+  background-color: #fafafa;
+  color: #1a1a1a;
+  font-family: 'Crimson Pro', Georgia, serif;
+  line-height: 1.6;
+  font-size: 18px;
 }
 
 .container {
-  padding: 2rem;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
+  padding: 2rem;
+}
+
+nav {
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 0;
+  margin-bottom: 3rem;
+  font-size: 0.9rem;
+}
+
+nav a {
+  color: #444;
+  text-decoration: none;
+  margin-right: 2rem;
+}
+
+.blog-sections {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #222;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.post-list {
+  list-style: none;
+}
+
+.post-list li {
+  margin-bottom: 0.8rem;
+}
+
+.post-list a {
+  color: #1a1a1a;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.post-list a:hover {
+  border-bottom-color: #1a1a1a;
+}
+
+.intro {
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin: 0 auto 4rem;
+  text-align: center;
+  line-height: 1.8;
 }
 
 .navbar {
