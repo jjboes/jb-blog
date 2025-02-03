@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node server/server.js",
-    "build": "cd client && npm install && npm run build",
+    "build": "npm install",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server/server.js",
-    "client": "cd client && npm start"
+    "client": "npm start"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
