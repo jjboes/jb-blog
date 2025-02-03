@@ -1,34 +1,19 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import api from '../services/api';
 
 function CreatePost() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [image, setImage] = useState(null);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('content', content);
-    if (image) {
-      formData.append('image', image);
-    }
-
     try {
-      await api.post('/posts', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      // We'll add the API call to create post later
       navigate('/');
     } catch (err) {
-      setError(err.response.data.message);
+      setError('Failed to create post');
     }
   };
 
@@ -38,42 +23,24 @@ function CreatePost() {
       {error && <div className="error">{error}</div>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="title">Title</label>
+          <label>Title</label>
           <input
             type="text"
-            id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
           />
         </div>
         <div className="form-group">
-          <label htmlFor="image">Image (optional)</label>
-          <input
-            type="file"
-            id="image"
-            accept="image/*"
-            onChange={(e) => setImage(e.target.files[0])}
-          />
-        </div>
-        <div className="form-group">
           <label>Content</label>
-          <ReactQuill
+          <textarea
             value={content}
-            onChange={setContent}
-            theme="snow"
-            modules={{
-              toolbar: [
-                [{ 'header': [1, 2, false] }],
-                ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                [{'list': 'ordered'}, {'list': 'bullet'}],
-                ['link', 'image'],
-                ['clean']
-              ],
-            }}
+            onChange={(e) => setContent(e.target.value)}
+            required
+            rows="10"
           />
         </div>
-        <button type="submit" className="submit-btn">Publish Post</button>
+        <button type="submit" className="submit-btn">Create Post</button>
       </form>
     </div>
   );
